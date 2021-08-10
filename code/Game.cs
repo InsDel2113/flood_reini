@@ -93,8 +93,12 @@ partial class FloodGame : Game
 			foreach ( var entity in Entity.All ) // find lowest entity
 				if ( entity.Position.z < lowestPoint )
 					lowestPoint = entity.Position.z;
-			if ( lowestPoint < WaterHeight ) // don't want it too low now
+			if ( lowestPoint < WaterHeight / 2 ) // don't want it too low now
 				lowestPoint += WaterHeight / 2;
+
+			Log.Info( "WaterHeight: " + WaterHeight );
+			Log.Info( "lowestPoint: " + lowestPoint );
+
 			// theoretically this logic is wrong but it works
 			water.Position = new Vector3(water.Position.x, water.Position.y, lowestPoint);
 			Log.Info( "Force created water. Set ForceCreateWater to false in Game.cs to disable this " );
