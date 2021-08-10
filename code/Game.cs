@@ -140,6 +140,25 @@ partial class FloodGame : Game
 	public void OnSecond() // Second tick
 	{
 		RoundTime++;
+
+		int livingPlayers = 0;
+		foreach ( var player in Client.All )
+		{
+			if ( !player.IsValid() )
+			{
+				continue;
+			}
+
+			if ( player.Pawn.Health >= 1 )
+			{
+				livingPlayers++;
+			}
+		}
+		if ( livingPlayers < 1 )
+		{
+			RoundTime = 0;
+			CurrentRound = Round.PreGame;
+		}
 		switch ( CurrentRound )
 		{
 			case Round.PreGame:

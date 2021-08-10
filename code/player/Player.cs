@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 
 partial class FloodPlayer : Player
 {
@@ -151,6 +152,12 @@ partial class FloodPlayer : Player
 
 		if ( DevController is NoclipController )
 			DevController = null;
+
+		if ( FloodGame.Instance.CurrentRound == FloodGame.Round.PostGame )
+		{
+			ChatBox.Say( "You lived! Have some victory money." );
+			Money += 1;
+		}
 
 		var controller = GetActiveController();
 		if ( controller != null )
