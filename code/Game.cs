@@ -196,9 +196,12 @@ partial class FloodGame : Game
 		ent.PropOwner = owner;
 
 		var floodPlayer = owner as FloodPlayer;
-		var cost = (int)ent.PhysicsBody.Mass * 2; // mass based cost
-		if ( cost > 1000 )
-			cost = 1000;
+		var cost = (int)(ent.PhysicsBody.Mass * 0.1f); // mass based cost
+		// TODO: improve in future
+		if ( cost > 500 )
+			cost = 500;
+		if ( cost < 50 )
+			cost = 50;
 		cost = ((cost) / 50) * 50; // round to nearest 50
 		if ( cost > floodPlayer.Money )
 		{

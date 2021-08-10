@@ -14,7 +14,7 @@ partial class FloodPlayer : Player
 	[Net, Predicted] public ICamera MainCamera { get; set; }
 
 	[Net]
-	public int Money { get; set; } = 500;
+	public int Money { get; set; } = 2000;
 
 	public ICamera LastCamera { get; set; }
 

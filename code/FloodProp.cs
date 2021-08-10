@@ -10,6 +10,8 @@ public partial class FloodProp : Prop
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+		if ( PhysicsBody.Mass > 200f )
+			PhysicsBody.Mass = 200f;
 	}
 
 	public override void TakeDamage( DamageInfo info )
