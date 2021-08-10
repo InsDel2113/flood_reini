@@ -57,6 +57,7 @@ partial class FloodGame : Game
 	public Round CurrentRound { get; set; } = Round.PreGame;
 	[Net]
 	public int RoundTime { get; set; } = 0;
+
 	public int PreGameTime = 60;
 	public int FightTime = 60;
 	public int PostGameTime = 7;
@@ -65,7 +66,7 @@ partial class FloodGame : Game
 	#region Water variables
 	public Entity Water;
 	public Vector3 WaterBasePosition;
-	public float WaterHeight = 375f;
+	public float WaterHeight = 375f; // how high the water goes up to
 	public bool ForceCreateWater = true; // create the water if the map doesn't already have it
 	#endregion
 
@@ -86,8 +87,17 @@ partial class FloodGame : Game
 			return;
 		if ( retryCounter == 9 && ForceCreateWater )
 		{
+			// insert overly complicated code to dynamically set up the water on unsupported maps
 			var water = new WaterSea();
-			Log.Info( "Force created water. Set ForceCreateWater in Game.cs to disable this " );
+			float lowestPoint = 0f;
+			foreach ( var entity in Entity.All ) // find lowest entity
+				if ( entity.Position.z < lowestPoint )
+					lowestPoint = entity.Position.z;
+			if ( lowestPoint < WaterHeight ) // don't want it too low now
+				lowestPoint += WaterHeight / 2;
+			// theoretically this logic is wrong but it works
+			water.Position = new Vector3(water.Position.x, water.Position.y, lowestPoint);
+			Log.Info( "Force created water. Set ForceCreateWater to false in Game.cs to disable this " );
 		}
 		if ( retryCounter == 10 )
 		{
@@ -108,7 +118,7 @@ partial class FloodGame : Game
 		}
 		retryCounter++;
 	}
-	void FloodWorld()
+	void FloodWorld() // makes the water go up and down/flood
 	{
 		switch ( CurrentRound )
 		{
