@@ -174,9 +174,10 @@ partial class FloodGame : Game
 	{
 		if ( FloodGame.Instance.CurrentRound != Round.PreGame )
 		{
-			ChatBox.Say( "You cannot spawn things during play phases!" );
+			ChatBox.Say( "You cannot buy things during play phases!" );
 			return;
 		}
+
 		var owner = ConsoleSystem.Caller?.Pawn;
 
 		if ( ConsoleSystem.Caller == null )
@@ -213,9 +214,10 @@ partial class FloodGame : Game
 	{
 		if ( FloodGame.Instance.CurrentRound != Round.PreGame )
 		{
-			ChatBox.Say( "You cannot spawn things during play phases!" );
+			ChatBox.Say( "You cannot buy things during play phases!" );
 			return;
 		}
+
 		var owner = ConsoleSystem.Caller.Pawn;
 
 		if ( owner == null )
