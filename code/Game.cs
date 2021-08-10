@@ -87,7 +87,6 @@ partial class FloodGame : Game
 			return;
 		if ( retryCounter == 9 && ForceCreateWater )
 		{
-			// insert overly complicated code to dynamically set up the water on unsupported maps
 			var water = new WaterSea();
 			float lowestPoint = 0f;
 			foreach ( var entity in Entity.All ) // find lowest entity
@@ -95,11 +94,8 @@ partial class FloodGame : Game
 					lowestPoint = entity.Position.z;
 			if ( lowestPoint < WaterHeight / 2 ) // don't want it too low now
 				lowestPoint += WaterHeight / 2;
-
-			Log.Info( "WaterHeight: " + WaterHeight );
-			Log.Info( "lowestPoint: " + lowestPoint );
-
 			// theoretically this logic is wrong but it works
+
 			water.Position = new Vector3(water.Position.x, water.Position.y, lowestPoint);
 			Log.Info( "Force created water. Set ForceCreateWater to false in Game.cs to disable this " );
 		}
