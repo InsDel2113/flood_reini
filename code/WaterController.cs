@@ -95,7 +95,8 @@ namespace Sandbox
 			{
 				var bouyancy = densityDiff.LerpInverse( 0.0f, -300f );
 				bouyancy = MathF.Pow( bouyancy, 0.1f );
-				if ( bouyancy < 0.97f ) bouyancy = 0.97f;
+				if ( bouyancy > 0.98f ) bouyancy = 2f;
+				if ( bouyancy < 0.95f ) bouyancy = 5f;
 
 				//	DebugOverlay.Text( pos, $"{bouyancy}", Host.Color, 0.1f, 10000 );
 
