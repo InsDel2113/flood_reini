@@ -66,6 +66,7 @@ partial class FloodGame : Game
 	public Entity Water;
 	public Vector3 WaterBasePosition;
 	public float WaterHeight = 375f;
+	public bool ForceCreateWater = true; // create the water if the map doesn't already have it
 	#endregion
 
 	#region Logic
@@ -83,6 +84,11 @@ partial class FloodGame : Game
 	{
 		if ( Water != null )
 			return;
+		if ( retryCounter == 9 && ForceCreateWater )
+		{
+			var water = new WaterSea();
+			Log.Info( "Force created water. Set ForceCreateWater in Game.cs to disable this " );
+		}
 		if ( retryCounter == 10 )
 		{
 			Log.Info( "Failed to find water after 10 retries. Please find a map with env_sea in it" );
@@ -158,8 +164,7 @@ partial class FloodGame : Game
 	{
 		if ( FloodGame.Instance.CurrentRound != Round.PreGame )
 		{
-			//ChatBox.Say( "You cannot spawn things during play phases!" );
-			ChatBox.AddChatEntry( "System", "You cannot spawn things during play phases!", "/ui/system.png" );
+			ChatBox.Say( "You cannot spawn things during play phases!" );
 			return;
 		}
 		var owner = ConsoleSystem.Caller?.Pawn;
