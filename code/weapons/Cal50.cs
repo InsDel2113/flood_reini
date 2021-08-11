@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 
-[Library( "50cal", Spawnable = true )]
+[Library( "50cal", Title = "50 Cal", Spawnable = true )]
 public partial class Cal50 : Fix
 {
 	public static SoundEvent Attack = new SoundEvent( "weapons/50cal/50cal.vsnd" );

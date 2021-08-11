@@ -93,8 +93,8 @@ partial class FloodPlayer : Player
 		EnableAllCollisions = false;
 		EnableDrawing = false;
 
-		Inventory.DropActive();
-		Inventory.DeleteContents();
+		//Inventory.DropActive();
+		//Inventory.DeleteContents();
 	}
 
 	public override void TakeDamage( DamageInfo info )
@@ -180,6 +180,7 @@ partial class FloodPlayer : Player
 
 		Camera = GetActiveCamera();
 
+		/*
 		if ( Input.Pressed( InputButton.Drop ) )
 		{
 			var dropped = Inventory.DropActive();
@@ -191,6 +192,7 @@ partial class FloodPlayer : Player
 				timeSinceDropped = 0;
 			}
 		}
+		*/
 
 		if ( Input.Released( InputButton.Jump ) )
 		{

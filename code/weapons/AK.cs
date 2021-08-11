@@ -1,5 +1,5 @@
 ﻿using Sandbox;
-[Library( "ak", Spawnable = true )]
+[Library( "ak", Title = "AK", Spawnable = true )]
 public class AK : Weapon
 {
 	public override string ViewModelPath => "weapons/ak/v_ak.vmdl";
