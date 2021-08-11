@@ -76,16 +76,40 @@ partial class FloodGame : Game
 	{
 		if ( !IsServer ) // Should we run this on the client? I don't know!
 			return;
-		if ( Client.All.Count < MinimumPlayers )
-		{
-			CurrentRound = Round.PreGame;
-			RoundTime = 0;
-		}
+		ShouldRunRounds();
 		SetupWater();
 		if ( Water == null )
 			return;
 		FloodWorld();
 	}
+	void ShouldRunRounds()
+	{
+		if ( Client.All.Count < MinimumPlayers )
+		{
+			CurrentRound = Round.PreGame;
+			RoundTime = 0;
+			return;
+		}
+		int livingPlayers = 0;
+		foreach ( var player in Client.All )
+		{
+			if ( !player.IsValid() )
+			{
+				continue;
+			}
+
+			if ( player.Pawn.Health >= 1 )
+			{
+				livingPlayers++;
+			}
+		}
+		if ( livingPlayers < 1 )
+		{
+			RoundTime = 0;
+			CurrentRound = Round.PreGame;
+		}
+	}
+
 	int retryCounter = 0;
 	void SetupWater() // We find the water and set up base positions in here
 	{
@@ -147,24 +171,6 @@ partial class FloodGame : Game
 	{
 		RoundTime++;
 
-		int livingPlayers = 0;
-		foreach ( var player in Client.All )
-		{
-			if ( !player.IsValid() )
-			{
-				continue;
-			}
-
-			if ( player.Pawn.Health >= 1 )
-			{
-				livingPlayers++;
-			}
-		}
-		if ( livingPlayers < 1 )
-		{
-			RoundTime = 0;
-			CurrentRound = Round.PreGame;
-		}
 		switch ( CurrentRound )
 		{
 			case Round.PreGame:
