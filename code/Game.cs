@@ -58,9 +58,10 @@ partial class FloodGame : Game
 	[Net]
 	public int RoundTime { get; set; } = 0;
 
-	public int PreGameTime = 60;
-	public int FightTime = 60;
+	public int PreGameTime = 120;
+	public int FightTime = 80;
 	public int PostGameTime = 7;
+	public int MinimumPlayers = 2;
 	#endregion
 
 	#region Water variables
@@ -75,6 +76,11 @@ partial class FloodGame : Game
 	{
 		if ( !IsServer ) // Should we run this on the client? I don't know!
 			return;
+		if ( Client.All.Count < MinimumPlayers )
+		{
+			CurrentRound = Round.PreGame;
+			RoundTime = 0;
+		}
 		SetupWater();
 		if ( Water == null )
 			return;
