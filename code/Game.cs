@@ -96,7 +96,7 @@ partial class FloodGame : Game
 					lowestPoint = entity.Position.z;
 			if ( lowestPoint < WaterHeight / 2 ) // don't want it too low now
 				lowestPoint += WaterHeight / 2;
-			// theoretically this logic is wrong but it works
+			// the logic is weird but it works on most maps who have SOMETHING at xyz000
 
 			water.Position = new Vector3(water.Position.x, water.Position.y, lowestPoint);
 			Log.Info( "Force created water. Set ForceCreateWater to false in Game.cs to disable this " );

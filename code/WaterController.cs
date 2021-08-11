@@ -97,6 +97,7 @@ namespace Sandbox
 				bouyancy = MathF.Pow( bouyancy, 0.1f );
 				if ( bouyancy > 0.98f ) bouyancy = 2f;
 				if ( bouyancy < 0.95f ) bouyancy = 5f;
+				// lighter shit doesn't need much a boost, heavier shit does
 
 				//	DebugOverlay.Text( pos, $"{bouyancy}", Host.Color, 0.1f, 10000 );
 
