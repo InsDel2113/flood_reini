@@ -22,8 +22,6 @@ public partial class FloodHud : HudEntity<RootPanel>
 		RootPanel.AddChild<SpawnMenu>();
 		RootPanel.AddChild<RoundInfo>();
 		RootPanel.AddChild<MoneyHud>();
-		//RootPanel.AddChild<Ammo>();
 		RootPanel.AddChild<Scope>();
-		//RootPanel.AddChild<Crosshair>();
 	}
 }

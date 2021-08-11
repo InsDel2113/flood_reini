@@ -10,7 +10,7 @@ public class Crosshair : Panel
 	Label ReloadTimer;
 	public Crosshair()
 	{
-		StyleSheet.Load( "/Weapons/Base/UI/Crosshair.scss" );
+		StyleSheet.Load( "ui/Crosshair.scss" );
 
 		for ( int i = 0; i < 5; i++ )
 		{

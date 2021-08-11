@@ -11,7 +11,7 @@
 
 
     .el0 {
-        background-color: #fff;
+        background-color: #ff0;
         border-radius: 1000px;
         width: 6px;
         height: 6px;
@@ -28,9 +28,9 @@
             top: -100px;
             width: 200px;
             height: 200px;
-            border: 6px solid #fff;
-            border-left: 6px solid #fff;
-            border-right: 6px solid #fff;
+            border: 6px solid #ff00;
+            border-left: 6px solid #ff0;
+            border-right: 6px solid #ff0;
             transition: all 0.5s ease-out;
         }
 
@@ -53,14 +53,14 @@
                 left: -150px;
                 width: 300px;
                 border: 6px solid #0000;
-                border-left: 6px solid #fff;
-                border-right: 6px solid #fff;
+                border-left: 6px solid #fa0;
+                border-right: 6px solid #fa0;
                 opacity: 1.0;
             }
 
             .el1 {
                 transition: all 0.01s ease-out;
-                background-color: #fff;
+                background-color: #ff0;
                 width: 16px;
                 height: 16px;
                 left: -8px;
@@ -74,7 +74,7 @@
         transition: opacity 0.3s ease-out;
 
         .el0, .el1, .el2, .el3 {
-            background-color: #fff;
+            background-color: #ff0;
             border-radius: 0;
             transition: all 0.5s ease-out;
         }
@@ -116,7 +116,7 @@
 
             .el0, .el1, .el2, .el3 {
                 transition: all 0.01s ease-in;
-                background-color: #fff;
+                background-color: #fa0;
             }
 
             .el0 {
