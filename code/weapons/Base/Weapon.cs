@@ -72,6 +72,7 @@ public partial class Weapon : BaseWeapon
 	{
 		get
 		{
+			return 9999; // temporary
 			if ( Owner is PlayerWithAmmo p )
 				return p.AmmoCount( AmmoType );
 

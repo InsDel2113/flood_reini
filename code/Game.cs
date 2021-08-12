@@ -62,7 +62,7 @@ partial class FloodGame : Game
 	public int PreGameTime = 120;
 	public int FightTime = 80;
 	public int PostGameTime = 7;
-	public int MinimumPlayers = 1; // remember
+	public int MinimumPlayers = 2;
 	public int LivingPlayers = 0;
 	#endregion
 
