@@ -167,57 +167,9 @@
 ]
 
 // 
-// GrenadeLauncher : Weapon 
-// 
-@PointClass = gl : ""
-[
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
-
-	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
-]
-
-// 
-// PipeGrenade : Projectile 
-// 
-@PointClass = pipe_grenade : ""
-[
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
-
-	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
-]
-
-// 
 // Knife : Weapon 
 // 
 @PointClass = knife : ""
-[
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
-
-	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
-]
-
-// 
-// M16 : Weapon 
-// 
-@PointClass = m16 : ""
-[
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
-
-	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
-]
-
-// 
-// M16Grenade : Projectile 
-// 
-@PointClass = m16grenade : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."

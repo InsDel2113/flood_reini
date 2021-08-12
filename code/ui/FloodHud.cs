@@ -23,5 +23,6 @@ public partial class FloodHud : HudEntity<RootPanel>
 		RootPanel.AddChild<RoundInfo>();
 		RootPanel.AddChild<MoneyHud>();
 		RootPanel.AddChild<Scope>();
+		RootPanel.AddChild<WaterOverlay>();
 	}
 }

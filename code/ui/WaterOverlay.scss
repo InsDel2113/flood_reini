@@ -1,0 +1,11 @@
+﻿wateroverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  mix-blend-mode: lighten;
+  background-color: rgba( #00a9ff, 0.1 );
+  transition: opacity 150ms ease;
+}
