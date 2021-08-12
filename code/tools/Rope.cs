@@ -37,7 +37,10 @@
 				if ( tr.Entity is not ModelEntity )
 					return;
 
-				if ( !OwnershipChecks( tr.Entity ) )
+				if (tr.Entity is Player)
+					return;
+
+				if ( !OwnershipChecks( Owner.GetClientOwner().SteamId, tr.Entity ) )
 					return;
 
 				if ( !targetBody.IsValid() )

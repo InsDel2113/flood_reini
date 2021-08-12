@@ -185,7 +185,7 @@ public partial class PhysGun : Carriable
 
 		// not using the OwnershipChecks function because this isn't a "tool"
 		var floodProp = tr.Entity as FloodProp;
-		if ( floodProp != null && floodProp.PropOwner != owner ) 
+		if ( floodProp != null && floodProp.PropOwner != owner.GetClientOwner().SteamId ) 
 		{
 			return;
 		}
@@ -337,6 +337,11 @@ public partial class PhysGun : Carriable
 		holdDistance = holdDistance.Clamp( MinTargetDistance, MaxTargetDistance );
 		heldPos = heldBody.Transform.PointToLocal( grabPos );
 		heldRot = rot.Inverse * heldBody.Rotation;
+
+		if ( heldBody != null && heldBody.IsValid() )
+		{
+			FloodGame.Instance.grabbedObjects.Add( heldBody );
+		}
 
 		holdBody.Position = grabPos;
 		holdBody.Rotation = heldBody.Rotation;

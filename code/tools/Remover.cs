@@ -27,7 +27,7 @@
 				if ( tr.Entity is Player )
 					return;
 
-				if ( !OwnershipChecks( tr.Entity ) )
+				if ( !OwnershipChecks( Owner.GetClientOwner().SteamId, tr.Entity ) )
 					return;
 
 				CreateHitEffects( tr.EndPos );
@@ -35,6 +35,8 @@
 				if ( tr.Entity.IsWorld )
 					return;
 
+				var FloodPlayer = Owner as FloodPlayer;
+				FloodPlayer.Money += FloodGame.Instance.GetCostOfProp( (FloodProp)tr.Entity );
 				tr.Entity.Delete();
 
 				var particle = Particles.Create( "particles/physgun_freeze.vpcf" );

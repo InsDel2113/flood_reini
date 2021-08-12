@@ -29,7 +29,7 @@ namespace Sandbox.Tools
 				if ( tr.Entity is not ModelEntity modelEnt )
 					return;
 
-				if ( !OwnershipChecks( tr.Entity ) )
+				if ( !OwnershipChecks( Owner.GetClientOwner().SteamId, tr.Entity ) )
 					return;
 
 				modelEnt.RenderColor = Color.Random.ToColor32();

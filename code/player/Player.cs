@@ -99,6 +99,8 @@ partial class FloodPlayer : Player
 
 	public override void TakeDamage( DamageInfo info )
 	{
+		if ( FloodGame.Instance.CurrentRound != FloodGame.Round.Fight )
+			return;
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
 			info.Damage *= 10.0f;
@@ -153,11 +155,13 @@ partial class FloodPlayer : Player
 		if ( DevController is NoclipController )
 			DevController = null;
 
-		if ( FloodGame.Instance.CurrentRound == FloodGame.Round.PostGame )
+		if ( FloodGame.Instance.CurrentRound == FloodGame.Round.PostGame && Money < 350 )
 		{
-			ChatBox.Say( "You lived! Have some victory money." );
-			Money += 1;
+			ChatBox.Say( "You seem to be a bit poor... Have some money!" );
+			Money = 2000;
 		}
+
+		Owner.GetClientOwner().SetScore( "money", Money );
 
 		var controller = GetActiveController();
 		if ( controller != null )

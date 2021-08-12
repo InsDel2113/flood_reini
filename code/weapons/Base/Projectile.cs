@@ -43,6 +43,7 @@ public class Projectile : BasePhysics
 		if ( e == Owner ) return;
 
 		if ( e is WaterFunc ) return;
+		if ( e.GetType() != typeof( FloodProp ) ) return;
 
 		if ( e is Player p )
 		{

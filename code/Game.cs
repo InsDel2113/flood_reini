@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 [Library( "flood_ini", Title = "Flood" )]
 partial class FloodGame : Game
@@ -61,15 +62,20 @@ partial class FloodGame : Game
 	public int PreGameTime = 120;
 	public int FightTime = 80;
 	public int PostGameTime = 7;
-	public int MinimumPlayers = 2;
+	public int MinimumPlayers = 1; // remember
+	public int LivingPlayers = 0;
 	#endregion
 
 	#region Water variables
 	public Entity Water;
 	public Vector3 WaterBasePosition;
 	public float WaterHeight = 375f; // how high the water goes up to
+	public float WaterSpeed = 1f; // how fast the water rises up
 	public bool ForceCreateWater = true; // create the water if the map doesn't already have it
 	#endregion
+
+	public List<PhysicsBody> grabbedObjects = new List<PhysicsBody>();
+	// ported from old flood, oh god i hate this
 
 	#region Logic
 	void FloodSimulate()
@@ -79,7 +85,25 @@ partial class FloodGame : Game
 		SetupWater();
 		if ( Water == null )
 			return;
+		UnfreezeProps();
 		FloodWorld();
+	}
+
+	void UnfreezeProps()
+	{
+		if ( CurrentRound != Round.PreGame )
+		{
+			foreach ( var grabObject in grabbedObjects )
+			{
+				if ( !grabObject.IsValid() )
+				{
+					grabbedObjects.Remove( grabObject );
+					continue;
+				}
+				grabObject.BodyType = PhysicsBodyType.Dynamic;
+			}
+			grabbedObjects.Clear();
+		}
 	}
 
 	int retryCounter = 0;
@@ -126,15 +150,15 @@ partial class FloodGame : Game
 		{
 			case Round.PreGame:
 				if ( WaterBasePosition.z < Water.Position.z )
-					Water.Position -= Vector3.Up;
+					Water.Position -= Vector3.Up * WaterSpeed;
 				break;
 			case Round.Fight:
 				if ( Water.Position.z < WaterHeight )
-					Water.Position += Vector3.Up;
+					Water.Position += Vector3.Up * WaterSpeed;
 				break;
 			case Round.PostGame:
 				if ( WaterBasePosition.z < Water.Position.z )
-					Water.Position -= Vector3.Up;
+					Water.Position -= Vector3.Up * WaterSpeed;
 				break;
 		}
 	}
@@ -148,6 +172,7 @@ partial class FloodGame : Game
 			return;
 		}
 		int livingPlayers = 0;
+		FloodPlayer lastPlayer = null;
 		foreach ( var player in Client.All )
 		{
 			if ( !player.IsValid() )
@@ -159,9 +184,17 @@ partial class FloodGame : Game
 			{
 				livingPlayers++;
 			}
+			lastPlayer = (FloodPlayer)player.Pawn;
 		}
-		if ( livingPlayers < 1 )
+		LivingPlayers = livingPlayers;
+		if ( LivingPlayers < 1 ) // no one is alive, reset game
 		{
+			RoundTime = 0;
+			CurrentRound = Round.PreGame;
+		}
+		if ( LivingPlayers == 1 && CurrentRound == Round.Fight ) // one person is alive, they won! reward them.
+		{
+			lastPlayer.Money += 2000;
 			RoundTime = 0;
 			CurrentRound = Round.PreGame;
 		}
@@ -199,6 +232,18 @@ partial class FloodGame : Game
 		}
 	}
 
+	public int GetCostOfProp( FloodProp prop)
+	{
+		var cost = (int)(prop.PhysicsBody.Mass * 0.1f); // mass based cost
+													   // TODO: improve in future
+		if ( cost > 500 )
+			cost = 500;
+		if ( cost < 50 )
+			cost = 50;
+		cost = ((cost) / 50) * 50; // round to nearest 50
+		return cost;
+	}
+
 	[ServerCmd( "spawn" )]
 	public static void Spawn( string modelname )
 	{
@@ -223,16 +268,10 @@ partial class FloodGame : Game
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRot.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 );
 		ent.SetModel( modelname );
 		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
-		ent.PropOwner = owner;
+		ent.PropOwner = ConsoleSystem.Caller.SteamId;
 
 		var floodPlayer = owner as FloodPlayer;
-		var cost = (int)(ent.PhysicsBody.Mass * 0.1f); // mass based cost
-		// TODO: improve in future
-		if ( cost > 500 )
-			cost = 500;
-		if ( cost < 50 )
-			cost = 50;
-		cost = ((cost) / 50) * 50; // round to nearest 50
+		var cost = FloodGame.Instance.GetCostOfProp( ent );
 		if ( cost > floodPlayer.Money )
 		{
 			ChatBox.Say( $"That costs too much! (Cost: {cost})" );

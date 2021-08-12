@@ -28,7 +28,7 @@
 				if ( tr.Entity is not Prop prop )
 					return;
 
-				if ( !OwnershipChecks( tr.Entity ) )
+				if ( !OwnershipChecks( Owner.GetClientOwner().SteamId, tr.Entity ) )
 					return;
 
 				if ( Input.Pressed( InputButton.Attack1 ) )

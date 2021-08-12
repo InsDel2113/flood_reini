@@ -123,10 +123,10 @@ namespace Sandbox.Tools
 			Parent?.CreateHitEffects( pos );
 		}
 
-		public bool OwnershipChecks(Entity Ent)
+		public bool OwnershipChecks(ulong steamID, Entity Ent)
 		{
 			var floodProp = Ent as FloodProp;
-			if ( floodProp != null && floodProp.PropOwner != Owner )
+			if ( floodProp != null && floodProp.PropOwner != steamID )
 			{
 				return false;
 			}

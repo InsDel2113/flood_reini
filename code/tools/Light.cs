@@ -49,7 +49,7 @@
 				if ( !tr.Hit || !tr.Entity.IsValid() )
 					return;
 
-				if ( !OwnershipChecks( tr.Entity ) )
+				if ( !OwnershipChecks( Owner.GetClientOwner().SteamId, tr.Entity ) )
 					return;
 
 				CreateHitEffects( tr.EndPos );
