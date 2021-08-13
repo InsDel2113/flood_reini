@@ -269,6 +269,7 @@ partial class FloodGame : Game
 		ent.SetModel( modelname );
 		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
 		ent.PropOwner = ConsoleSystem.Caller.SteamId;
+		ent.PhysicsBody.EnableAutoSleeping = false;
 
 		var floodPlayer = owner as FloodPlayer;
 		var cost = FloodGame.Instance.GetCostOfProp( ent );

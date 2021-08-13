@@ -6,7 +6,7 @@ namespace Sandbox
 	{
 		public Entity WaterEntity { get; set; }
 
-		public float WaterThickness = 80.0f;
+		public float WaterThickness = 70f;
 
 		public TimeSince TimeSinceLastEffect = 0;
 
