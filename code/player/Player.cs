@@ -41,7 +41,7 @@ partial class FloodPlayer : Player
 		}
 		SetModel( "models/citizen/citizen.vmdl" );
 
-		Controller = new WalkController();
+		Controller = new FloodWalkController();
 		Animator = new StandardPlayerAnimator();
 
 		MainCamera = LastCamera;
