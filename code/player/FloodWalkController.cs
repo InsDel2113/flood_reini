@@ -199,6 +199,7 @@ namespace Sandbox
 
 			Duck.PreTick();
 
+
 			bool bStayOnGround = false;
 			if ( Swimming )
 			{
@@ -227,16 +228,22 @@ namespace Sandbox
 				Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
 			}
 
-
-			if ( GroundEntity != null )
-			{
-				Velocity = Velocity.WithZ( 0 );
-			}
-
 			// CheckFalling(); // fall damage etc
 
 			// Land Sound
 			// Swim Sounds
+
+			if ( GroundEntity != null )
+			{
+				Velocity = Velocity.WithZ( 0 );
+				if ( GroundEntity is FloodProp )
+				{
+					if ( GroundEntity.Velocity.z > 0.01f ) // inherit velocity if it makes sense
+					{
+						Velocity = Velocity.WithZ( GroundEntity.Velocity.z );
+					}
+				}
+			}
 
 			SaveGroundPos();
 
@@ -439,13 +446,14 @@ namespace Sandbox
 			if ( Swimming )
 			{
 				// swimming, not jumping
+				if (GroundEntity is not FloodProp)
 				ClearGroundEntity();
 
 				Velocity = Velocity.WithZ( 100 );
 
 				var start = Pawn.EyePos;
 				var end = Pawn.EyeRot.Forward * 9999;
-				DebugOverlay.Line( start, end, 1f );
+				//DebugOverlay.Line( start, end, 1f );
 				var watercheck = Trace.Ray( start, end)
 			    .Ignore( Pawn )
 				.Ignore(FloodGame.Instance.Water)
@@ -621,7 +629,7 @@ namespace Sandbox
 				point.z -= StepSize;
 			}
 
-			if ( bMovingUpRapidly || Swimming ) // or ladder and moving up
+			if ( bMovingUpRapidly || Swimming && GroundEntity is not FloodProp ) // or ladder and moving up
 			{
 				ClearGroundEntity();
 				return;
