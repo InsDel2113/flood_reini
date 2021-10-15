@@ -47,7 +47,7 @@ namespace Sandbox
 			Host.AssertClient();
 
 			const int seaSize = 65535; //Make it big even though it's size is calculated on vertex shader, this makes Vis calculation aware of it
-										//Todo: sea tesselation size should be proportional to the resolution with a divider on quality and a ceiling
+									   //Todo: sea tesselation size should be proportional to the resolution with a divider on quality and a ceiling
 			int[] screenResolution = new[] { 1920, 1080 };
 			int seaLod = 10;
 

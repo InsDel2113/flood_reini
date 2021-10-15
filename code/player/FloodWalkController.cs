@@ -1,13 +1,4 @@
-﻿using Sandbox.Internal.JsonConvert;
-using Sandbox.Rcon;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
+﻿
 namespace Sandbox
 {
 	[Library]
@@ -199,7 +190,6 @@ namespace Sandbox
 
 			Duck.PreTick();
 
-
 			bool bStayOnGround = false;
 			if ( Swimming )
 			{
@@ -228,22 +218,16 @@ namespace Sandbox
 				Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
 			}
 
-			// CheckFalling(); // fall damage etc
-
-			// Land Sound
-			// Swim Sounds
 
 			if ( GroundEntity != null )
 			{
 				Velocity = Velocity.WithZ( 0 );
-				if ( GroundEntity is FloodProp )
-				{
-					if ( GroundEntity.Velocity.z > 0.01f ) // inherit velocity if it makes sense
-					{
-						Velocity = Velocity.WithZ( GroundEntity.Velocity.z );
-					}
-				}
 			}
+
+			// CheckFalling(); // fall damage etc
+
+			// Land Sound
+			// Swim Sounds
 
 			SaveGroundPos();
 
@@ -446,23 +430,9 @@ namespace Sandbox
 			if ( Swimming )
 			{
 				// swimming, not jumping
-				if (GroundEntity is not FloodProp)
 				ClearGroundEntity();
 
 				Velocity = Velocity.WithZ( 100 );
-
-				var start = Pawn.EyePos;
-				var end = Pawn.EyeRot.Forward * 9999;
-				//DebugOverlay.Line( start, end, 1f );
-				var watercheck = Trace.Ray( start, end)
-			    .Ignore( Pawn )
-				.Ignore(FloodGame.Instance.Water)
-			    .Run();
-				// i swear i'm not stupid, i encountered a bug writing this and this is my workaround
-				if ( watercheck.Entity is FloodProp && Vector3.DistanceBetween( start, watercheck.Entity.Position ) < 81 )
-				{
-					Velocity = Velocity.WithZ( 400 );
-				}
 
 				// play swimming sound
 				//  if ( player->m_flSwimSoundTime <= 0 )
@@ -629,7 +599,7 @@ namespace Sandbox
 				point.z -= StepSize;
 			}
 
-			if ( bMovingUpRapidly || Swimming && GroundEntity is not FloodProp ) // or ladder and moving up
+			if ( bMovingUpRapidly || Swimming ) // or ladder and moving up
 			{
 				ClearGroundEntity();
 				return;

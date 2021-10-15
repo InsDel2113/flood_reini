@@ -6,7 +6,7 @@ namespace Sandbox
 	{
 		public Entity WaterEntity { get; set; }
 
-		public float WaterThickness = 70f;
+		public float WaterThickness = 80.0f;
 
 		public TimeSince TimeSinceLastEffect = 0;
 
@@ -95,9 +95,6 @@ namespace Sandbox
 			{
 				var bouyancy = densityDiff.LerpInverse( 0.0f, -300f );
 				bouyancy = MathF.Pow( bouyancy, 0.1f );
-				if ( bouyancy > 0.98f ) bouyancy = 2f;
-				if ( bouyancy < 0.95f ) bouyancy = 5f;
-				// lighter shit doesn't need much a boost, heavier shit does
 
 				//	DebugOverlay.Text( pos, $"{bouyancy}", Host.Color, 0.1f, 10000 );
 

@@ -21,7 +21,7 @@ partial class FloodPlayer
 		ent.EnableHitboxes = true;
 		ent.EnableAllCollisions = true;
 		ent.SurroundingBoundsMode = SurroundingBoundsType.Physics;
-		ent.RenderColorAndAlpha = RenderColorAndAlpha;
+		ent.RenderColorWithAlpha = RenderColorWithAlpha;
 		ent.PhysicsGroup.Velocity = velocity;
 
 		if ( Local.Pawn == this )
@@ -44,7 +44,7 @@ partial class FloodPlayer
 				var clothing = new ModelEntity();
 				clothing.SetModel( model );
 				clothing.SetParent( ent, true );
-				clothing.RenderColorAndAlpha = e.RenderColorAndAlpha;
+				clothing.RenderColorWithAlpha = e.RenderColorWithAlpha;
 
 				if ( Local.Pawn == this )
 				{

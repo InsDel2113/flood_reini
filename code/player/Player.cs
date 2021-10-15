@@ -161,7 +161,8 @@ partial class FloodPlayer : Player
 			Money = 2000;
 		}
 
-		Owner.GetClientOwner().SetScore( "money", Money );
+		//Owner.GetClientOwner().SetScore( "money", Money );
+		//Owner.Client.SetScore( "money", Money );
 
 		var controller = GetActiveController();
 		if ( controller != null )

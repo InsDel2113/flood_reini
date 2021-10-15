@@ -2,7 +2,7 @@ using System;
 
 namespace Sandbox
 {
-    [Library( "water" )]
+	[Library( "water" )]
 	// [Hammer.Skip] // todo - make this not inherited?
 	// Sam: I won't make any underwater physics logic right now
 	public partial class Water : AnimEntity

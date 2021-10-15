@@ -87,11 +87,18 @@ partial class Tool : Carriable
 
 		CurrentTool?.OnFrame();
 	}
+
+	public override void SimulateAnimator( PawnAnimator anim )
+	{
+		anim.SetParam( "holdtype", 1 );
+		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetParam( "holdtype_handedness", 1 );
+	}
 }
 
 namespace Sandbox.Tools
 {
-	public partial class BaseTool : NetworkComponent
+	public partial class BaseTool : BaseNetworkable
 	{
 		public Tool Parent { get; set; }
 		public Player Owner { get; set; }
@@ -118,12 +125,7 @@ namespace Sandbox.Tools
 			UpdatePreviews();
 		}
 
-		public virtual void CreateHitEffects( Vector3 pos )
-		{
-			Parent?.CreateHitEffects( pos );
-		}
-
-		public bool OwnershipChecks(ulong steamID, Entity Ent)
+		public bool OwnershipChecks( ulong steamID, Entity Ent )
 		{
 			var floodProp = Ent as FloodProp;
 			if ( floodProp != null && floodProp.PropOwner != steamID )
@@ -131,6 +133,11 @@ namespace Sandbox.Tools
 				return false;
 			}
 			return true;
+		}
+
+		public virtual void CreateHitEffects( Vector3 pos )
+		{
+			Parent?.CreateHitEffects( pos );
 		}
 	}
 }
